@@ -31,17 +31,9 @@ class BlogController extends AbstractController
         $this->createPostUseCase = new CreatePostUseCase(new PostJsonplaceholderRepository(), new AuthorJsonplaceholderRepository(), new IdGenerator());
     }
 
-    #[Route('/posts', name: 'posts')]
+    #[Route('/posts', name: 'posts', methods:['GET'])]
     public function index(): Response
     {
-        /*$json = file_get_contents('https://jsonplaceholder.typicode.com/posts');
-        $postArray = [];
-        foreach(json_decode($json) as $postElement)
-        {
-            $post = new Post($postElement->id, $postElement->title, $postElement->body, new Author(1,'alex','aaa','678','aaaa'));
-            $postArray[] = $post;
-        }
-        return $this->render('blog/index.html.twig', ['posts' => $postArray]);*/
         $getAllPostsResponse = $this->getAllPostUseCase->execute();
 
         return $this->render('blog/index.html.twig', ['posts' => $getAllPostsResponse->getPosts()]);
