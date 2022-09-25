@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure;
 
+use App\Domain\Entity\Author;
 use App\Domain\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Collection;
@@ -18,9 +19,9 @@ use PostRepository;
  */
 class PostJsonplaceholderRepository extends ServiceEntityRepository implements PostRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct()
     {
-        parent::__construct($registry, Post::class);
+        
     }
 
     public function add(Post $entity, bool $flush = false): void
@@ -54,7 +55,8 @@ class PostJsonplaceholderRepository extends ServiceEntityRepository implements P
 
     public function findOneById(int $id): ?Post
     {
-        $json = file_get_contents('https://jsonplaceholder.typicode.com/posts/{id}', $id);
-        return $this->json(json_decode($json)); //TODO: devolver objeto Post
+        $url = "https://jsonplaceholder.typicode.com/posts/".$id;
+        $json = json_decode(file_get_contents($url));
+        return new Post($json->id, $json->title, $json->body, new Author(1,'alex','aaa','678','aaaa')); //TODO: devolver objeto Post
     }
 }

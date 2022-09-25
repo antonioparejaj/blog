@@ -2,22 +2,44 @@
 
 namespace App\Controller;
 
+use App\Application\GetPostUseCase;
+use App\Domain\Entity\Author;
+use App\Domain\Entity\Post;
+use App\Infrastructure\PostJsonplaceholderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class BlogController extends AbstractController
 {
-    #[Route('/posts', name: 'app_posts')]
+
+    private GetPostUseCase $getPostUseCase;
+
+    public function __construct()
+    {
+        $this->getPostUseCase = new GetPostUseCase(new PostJsonplaceholderRepository());
+    }
+
+    #[Route('/posts', name: 'posts')]
     public function index(): Response
     {
-        /*$json = file_get_contents('https://jsonplaceholder.typicode.com/posts');
-        return $this->json(json_decode($json));*/
+        $json = file_get_contents('https://jsonplaceholder.typicode.com/posts');
+        $postArray = [];
+        foreach(json_decode($json) as $postElement)
+        {
+            $post = new Post($postElement->id, $postElement->title, $postElement->body, new Author(1,'alex','aaa','678','aaaa'));
+            $postArray[] = $post;
+        }
+        //$posts = $this->getPostsQH->execute();
 
-        $posts = $this->getPostsQH->execute();
+        return $this->render('blog/index.html.twig', ['posts' => $postArray]);
+    }
 
-        return $this->render('blog/index.html.twig', [
-            'posts' => $posts
-        ]);
+    #[Route('/posts/{postId}', name: 'post', methods:['GET', 'HEAD'])]
+    public function getPostById(int $postId): Response
+    {
+        $getPostResponse = $this->getPostUseCase->execute($postId);
+        return $this->render('post/post.html.twig', ['post' => $getPostResponse->getPost()]);
     }
 }

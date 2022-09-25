@@ -5,13 +5,12 @@
     {{ encore_entry_link_tags('admin') }}
 {% endblock %}
 {% block title %}
-    Blog
+    Post
 {% endblock %}
 {% block body %}
     
-    {% for post in posts %}
-        <li> Title: {{post.getTitle()}} Body: {{post.getBody()}}</li>
-    {% endfor %}
+    
+    Title: {{post.getTitle()}} Body: {{post.getBody()}}
 
 {% endblock %}
 
