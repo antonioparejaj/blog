@@ -40,6 +40,17 @@ class Author
         $this->posts = new ArrayCollection();
     }
 
+    public static function fromObject(object $obj): self
+    {
+        return new self(
+            $obj->id ? (int) $obj->id : -1,
+            $obj->name,
+            $obj->email,
+            $obj->phone,
+            $obj->website
+        );
+    }
+
     public function getId(): ?int
     {
         return $this->id;
