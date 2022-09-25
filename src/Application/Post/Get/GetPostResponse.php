@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Post;
+namespace App\Application\Post\Get;
 
 use App\Domain\Entity\Post;
 

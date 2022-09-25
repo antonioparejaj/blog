@@ -57,7 +57,10 @@ class PostJsonplaceholderRepository extends ServiceEntityRepository implements P
     {
         $url = "https://jsonplaceholder.typicode.com/posts/".$id;
         $json = json_decode(file_get_contents($url));
-
+        if(empty($json))
+        {
+            return null;
+        }
         return new Post($json->id, $json->title, $json->body, $this->authorRepository->findOneById($json->userId)); //TODO: devolver objeto Post
     }
 }
