@@ -1,0 +1,13 @@
+App\Domain\Entity\Author:
+    attributes:
+        id:
+            groups: ['author']
+        name:
+            groups: ['author']
+        email:
+            groups: ['author']
+        phone:
+            groups: ['author']
+        website:
+            groups: ['author']
+        

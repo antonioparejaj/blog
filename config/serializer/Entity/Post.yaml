@@ -1,0 +1,8 @@
+App\Domain\Entity\Post:
+    attributes:
+        id:
+            groups: ['post']
+        title:
+            groups: ['post']
+        body:
+            groups: ['post']
