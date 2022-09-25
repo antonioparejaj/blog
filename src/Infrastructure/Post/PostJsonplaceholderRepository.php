@@ -44,7 +44,13 @@ class PostJsonplaceholderRepository extends ServiceEntityRepository implements P
     public function findAll(): array
     {
         $json = file_get_contents('https://jsonplaceholder.typicode.com/posts');
-        return json_decode($json);
+        $postArray = [];
+        foreach(json_decode($json) as $postElement)
+        {
+            $post = new Post($postElement->id, $postElement->title, $postElement->body, new Author(1,'alex','aaa','678','aaaa'));
+            $postArray[] = $post;
+        }
+        return $postArray;
     }
 
     public function findOneById(int $id): ?Post

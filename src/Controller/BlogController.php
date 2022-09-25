@@ -33,7 +33,8 @@ class BlogController extends AbstractController
         {
             $post = new Post($postElement->id, $postElement->title, $postElement->body, new Author(1,'alex','aaa','678','aaaa'));
             $postArray[] = $post;
-        }*/
+        }
+        return $this->render('blog/index.html.twig', ['posts' => $postArray]);*/
         $getAllPostsResponse = $this->getAllPostUseCase->execute();
 
         return $this->render('blog/index.html.twig', ['posts' => $getAllPostsResponse->getPosts()]);
