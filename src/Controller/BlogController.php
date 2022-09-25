@@ -8,6 +8,7 @@ use App\Application\Post\Get\GetAllPostsUseCase;
 use App\Application\Post\Get\GetPostUseCase;
 use App\Domain\Entity\Author;
 use App\Domain\Entity\Post;
+use App\Domain\Exception\InvalidPostDataException;
 use App\Domain\Shared\IdGenerator;
 use App\Infrastructure\Author\AuthorJsonplaceholderRepository;
 use App\Infrastructure\Post\PostJsonplaceholderRepository;

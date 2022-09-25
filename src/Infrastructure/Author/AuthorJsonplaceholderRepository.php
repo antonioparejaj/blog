@@ -23,6 +23,10 @@ class AuthorJsonplaceholderRepository extends ServiceEntityRepository implements
     {
         $url = "https://jsonplaceholder.typicode.com/users/".$id;
         $json = json_decode(file_get_contents($url));
+        if(empty($json))
+        {
+            return null;
+        }
         return new Author($json->id,$json->name,$json->email,$json->phone,$json->website);
     }
 }

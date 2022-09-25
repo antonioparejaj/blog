@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Post;
+namespace App\Application\Post\Create;
 
 
 class CreatePostCommand
